@@ -1,0 +1,7 @@
+name = "paperlens-proxy"
+main = "src/index.ts"
+compatibility_date = "2024-05-29"
+
+[vars]
+# GROQ_API_KEY is configured as a secret via `wrangler secret put GROQ_API_KEY`
+# We can add default env vars here if needed, but secrets are handled via Cloudflare dashboard or wrangler CLI.
