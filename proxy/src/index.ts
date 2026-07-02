@@ -253,7 +253,7 @@ Strict requirements:
         'Authorization': `Bearer ${env.GROQ_API_KEY}`,
       },
       body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
+        model: 'meta-llama/llama-4-scout-17b-16e-instruct',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: `Here is the research paper text:\n\n${truncatedText}` },
@@ -275,7 +275,7 @@ Strict requirements:
     }
 
     const parsedJson = JSON.parse(rawContent.trim());
-    
+
     // Validate schema
     const validationResult = ExplainerSchema.safeParse(parsedJson);
     if (!validationResult.success) {
