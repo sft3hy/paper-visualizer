@@ -55,43 +55,43 @@ export const FileDropzone: React.FC = () => {
     onDrop,
     accept: { 'application/pdf': ['.pdf'] },
     multiple: false,
-    noClick: true, // Allow opening only via button click to make dropzone click-draggable
+    noClick: true,
   });
 
   return (
     <div
       {...getRootProps()}
-      className={`relative w-full rounded-2xl border-2 border-dashed p-8 sm:p-12 text-center transition-all duration-300 glass-panel ${
+      className={`relative w-full rounded-xl border border-dashed p-6 text-center transition-all duration-300 glass-panel ${
         isDragActive
           ? 'border-primary bg-primary/5 scale-[1.01]'
-          : 'border-slate-800 hover:border-slate-700/80 bg-slate-950/5'
+          : 'border-slate-800 hover:border-slate-700/80 bg-slate-950/20'
       }`}
     >
-      <input { ...getInputProps() } />
+      <input {...getInputProps()} />
       
-      <div className="flex flex-col items-center justify-center gap-4">
-        <div className={`p-4 rounded-full bg-slate-900 border transition-all duration-300 ${
-          isDragActive ? 'border-primary text-primary scale-110' : 'border-slate-800 text-slate-400'
+      <div className="flex flex-col items-center justify-center gap-3">
+        <div className={`p-3 rounded-full bg-slate-900/50 border transition-all duration-300 ${
+          isDragActive ? 'border-primary text-primary scale-110' : 'border-slate-800 text-slate-500'
         }`}>
-          <UploadCloud className="w-8 h-8 animate-float" />
+          <UploadCloud className="w-6 h-6 animate-float" />
         </div>
 
-        <div className="flex flex-col gap-1.5 max-w-md">
-          <h3 className="text-lg font-bold text-slate-200 font-display">
-            Drag & drop your research paper
-          </h3>
-          <p className="text-xs sm:text-sm text-slate-400">
-            Support PDF files up to 25MB. Text extraction and formatting happens fully client-side.
+        <div className="flex flex-col gap-1">
+          <h4 className="text-sm font-bold text-slate-300 font-display">
+            Drag PDF here
+          </h4>
+          <p className="text-[10px] text-slate-500 leading-normal max-w-[180px] mx-auto">
+            Limit 25MB. Text extraction and formatting happens fully client-side.
           </p>
         </div>
 
         <button
           type="button"
           onClick={open}
-          className="mt-2 px-5 py-2.5 rounded-xl bg-primary hover:bg-primary-light text-slate-950 font-bold text-sm shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all active:scale-95 flex items-center gap-2"
+          className="mt-1 px-4 py-2 rounded-lg bg-primary hover:bg-primary-light text-slate-950 font-bold text-xs shadow-md shadow-primary/10 hover:shadow-primary/20 transition-all active:scale-95 flex items-center gap-1.5"
         >
-          <FileText className="w-4 h-4" />
-          Choose PDF File
+          <FileText className="w-3.5 h-3.5" />
+          Choose File
         </button>
       </div>
     </div>
