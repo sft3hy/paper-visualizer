@@ -48,26 +48,10 @@ const ExplainerSchema = z.object({
   ).min(1).max(15),
 });
 
-// Setup Router with built-in CORS handler
-const { preflight, corsify } = cors({
-  origin: (origin) => {
-    // If ALLOWED_ORIGIN is explicitly set, use it.
-    // Otherwise, allow localhost (development) and github.io (production).
-    if (!origin) return;
-    const url = new URL(origin);
-    if (url.hostname === 'localhost' || url.hostname === '127.0.0.1' || url.hostname.endsWith('.github.io')) {
-      return origin;
-    }
-    return;
-  },
-  allowMethods: ['GET', 'POST', 'OPTIONS'],
-  allowHeaders: ['Content-Type', 'Authorization'],
-});
-
+// Create router using AutoRouter
 const router = AutoRouter<any, [Env, any]>();
 
-// Preflight handler
-router.all('*', preflight);
+// CORS preflights are handled globally in the export handler below
 
 // Health check endpoint
 router.get('/api/health', () => {
@@ -308,6 +292,43 @@ Strict requirements:
 router.all('*', () => new Response('Not Found', { status: 404 }));
 
 export default {
-  fetch: (request: Request, env: Env, ctx: any) =>
-    router.fetch(request, env, ctx).then(corsify),
+  async fetch(request: Request, env: Env, ctx: any): Promise<Response> {
+    const origin = request.headers.get('Origin');
+    let allowedOrigin = '';
+
+    if (origin) {
+      const url = new URL(origin);
+      if (
+        url.hostname === 'localhost' ||
+        url.hostname === '127.0.0.1' ||
+        url.hostname === 'sft3hy.github.io' ||
+        url.hostname.endsWith('.github.io')
+      ) {
+        allowedOrigin = origin;
+      }
+    }
+
+    // Handle preflight OPTIONS requests directly
+    if (request.method === 'OPTIONS') {
+      return new Response(null, {
+        status: 204,
+        headers: {
+          'Access-Control-Allow-Origin': allowedOrigin || '*',
+          'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          'Access-Control-Max-Age': '86400',
+        },
+      });
+    }
+
+    const response = await router.fetch(request, env, ctx);
+
+    // Create a new response to modify headers safely
+    const corsResponse = new Response(response.body, response);
+    corsResponse.headers.set('Access-Control-Allow-Origin', allowedOrigin || '*');
+    corsResponse.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    corsResponse.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+    return corsResponse;
+  },
 };
