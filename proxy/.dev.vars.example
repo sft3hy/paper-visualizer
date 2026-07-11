@@ -1,0 +1,5 @@
+# Local development environment variables for Cloudflare Wrangler
+# Copy this file to a new file named `.dev.vars` and add your Groq API Key.
+# DO NOT commit `.dev.vars` containing real keys to Git.
+
+GROQ_API_KEY="your-groq-api-key-here"
