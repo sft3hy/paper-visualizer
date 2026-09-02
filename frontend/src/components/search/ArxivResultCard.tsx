@@ -61,41 +61,41 @@ export const ArxivResultCard: React.FC<ArxivResultCardProps> = ({ paper }) => {
     : '';
 
   return (
-    <div className="glass-panel rounded-xl p-5 border border-slate-800/80 hover:border-slate-700/80 hover:bg-slate-950/20 transition-all duration-300 flex flex-col justify-between gap-4">
+    <div className="paper-panel rounded-lg p-5 border border-border hover:border-accent-gold/60 hover:bg-accent-gold/5 transition-all duration-300 flex flex-col justify-between gap-4">
       <div className="flex flex-col gap-2">
         {/* Date and actions */}
-        <div className="flex justify-between items-center text-[10px] text-slate-500 font-mono">
+        <div className="flex justify-between items-center text-[10px] text-text/60 font-mono">
           <span className="flex items-center gap-1">
             <Calendar className="w-3.5 h-3.5" />
             {formattedDate}
           </span>
-          <span className="text-primary font-semibold">arXiv:{paper.id}</span>
+          <span className="text-accent-gold font-semibold">arXiv:{paper.id}</span>
         </div>
 
         {/* Title */}
-        <h4 className="text-sm sm:text-base font-semibold text-slate-200 line-clamp-2 font-display leading-snug">
+        <h4 className="text-sm sm:text-base font-semibold text-text line-clamp-2 font-display leading-snug">
           {paper.title}
         </h4>
 
         {/* Authors */}
         {paper.authors.length > 0 && (
-          <div className="flex items-start gap-1 text-xs text-slate-400 font-mono line-clamp-1">
+          <div className="flex items-start gap-1 text-xs text-text/60 font-mono line-clamp-1">
             <Users className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
             <span>{paper.authors.join(', ')}</span>
           </div>
         )}
 
         {/* Summary (abstract snippet) */}
-        <p className="text-xs text-slate-400 line-clamp-3 leading-relaxed mt-1">
+        <p className="text-xs text-text/60 line-clamp-3 leading-relaxed mt-1">
           {paper.summary}
         </p>
       </div>
 
-      <div className="flex items-center gap-2 pt-2 border-t border-slate-900">
+      <div className="flex items-center gap-2 pt-2 border-t border-border">
         <button
           onClick={handleSelectPaper}
           disabled={isReading}
-          className="flex-1 px-4 py-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-primary/40 hover:bg-primary/5 text-primary hover:text-primary-light font-bold text-xs transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5"
+          className="flex-1 px-4 py-2 rounded-lg bg-accent-gold hover:bg-accent-gold-light text-text font-bold text-xs transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5"
         >
           <FileDown className="w-3.5 h-3.5" />
           {isReading ? 'Reading PDF...' : 'Lens Explainer'}
@@ -105,7 +105,7 @@ export const ArxivResultCard: React.FC<ArxivResultCardProps> = ({ paper }) => {
           href={paper.webUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="p-2 rounded-lg bg-slate-900/40 hover:bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200 transition-colors flex items-center justify-center"
+          className="p-2 rounded-lg bg-panel hover:bg-accent-gold/5 border border-border text-text/60 hover:text-accent-gold transition-colors flex items-center justify-center"
           title="Open arXiv page"
         >
           <ExternalLink className="w-3.5 h-3.5" />
