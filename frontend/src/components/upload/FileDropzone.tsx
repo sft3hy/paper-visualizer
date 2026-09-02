@@ -61,26 +61,26 @@ export const FileDropzone: React.FC = () => {
   return (
     <div
       {...getRootProps()}
-      className={`relative w-full rounded-xl border border-dashed p-6 text-center transition-all duration-300 glass-panel ${
+      className={`relative w-full rounded-lg border border-dashed p-6 text-center transition-all duration-300 paper-panel ${
         isDragActive
-          ? 'border-primary bg-primary/5 scale-[1.01]'
-          : 'border-slate-800 hover:border-slate-700/80 bg-slate-950/20'
+          ? 'border-accent-gold bg-accent-gold/5 scale-[1.01]'
+          : 'border-border hover:border-accent-gold/60'
       }`}
     >
       <input {...getInputProps()} />
       
       <div className="flex flex-col items-center justify-center gap-3">
-        <div className={`p-3 rounded-full bg-slate-900/50 border transition-all duration-300 ${
-          isDragActive ? 'border-primary text-primary scale-110' : 'border-slate-800 text-slate-500'
+        <div className={`p-3 rounded-full bg-panel border transition-all duration-300 ${
+          isDragActive ? 'border-accent-gold text-accent-gold scale-110' : 'border-border text-text/40'
         }`}>
-          <UploadCloud className="w-6 h-6 animate-float" />
+          <UploadCloud className="w-6 h-6" />
         </div>
 
         <div className="flex flex-col gap-1">
-          <h4 className="text-sm font-bold text-slate-300 font-display">
+          <h4 className="text-sm font-bold text-text font-display">
             Drag PDF here
           </h4>
-          <p className="text-[10px] text-slate-500 leading-normal max-w-[180px] mx-auto">
+          <p className="text-[10px] text-text/60 leading-normal max-w-[180px] mx-auto">
             Limit 25MB. Text extraction and formatting happens fully client-side.
           </p>
         </div>
@@ -88,7 +88,7 @@ export const FileDropzone: React.FC = () => {
         <button
           type="button"
           onClick={open}
-          className="mt-1 px-4 py-2 rounded-lg bg-primary hover:bg-primary-light text-slate-950 font-bold text-xs shadow-md shadow-primary/10 hover:shadow-primary/20 transition-all active:scale-95 flex items-center gap-1.5"
+          className="mt-1 px-4 py-2 rounded-lg bg-accent-gold hover:bg-accent-gold-light text-text font-bold text-xs transition-all active:scale-95 flex items-center gap-1.5"
         >
           <FileText className="w-3.5 h-3.5" />
           Choose File
